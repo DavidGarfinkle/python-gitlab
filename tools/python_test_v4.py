@@ -385,6 +385,8 @@ assert(blob == 'Initial content')
 archive1 = admin_project.repository_archive()
 archive2 = admin_project.repository_archive('master')
 assert(archive1 == archive2)
+recursive_tree = admin_project.repository_tree(recursive=True)
+assert(len(recursive_tree) != 0)
 
 # project file uploads
 filename = "test.txt"

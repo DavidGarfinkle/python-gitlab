@@ -2403,7 +2403,7 @@ class Project(SaveMixin, ObjectDeleteMixin, RESTObject):
 
     @cli.register_custom_action('Project', tuple(), ('path', 'ref'))
     @exc.on_http_error(exc.GitlabGetError)
-    def repository_tree(self, path='', ref='', **kwargs):
+    def repository_tree(self, path='', ref='', recursive=False, **kwargs):
         """Return a list of files in the repository.
 
         Args:
@@ -2429,6 +2429,8 @@ class Project(SaveMixin, ObjectDeleteMixin, RESTObject):
             query_data['path'] = path
         if ref:
             query_data['ref'] = ref
+        if recursive:
+            query_data['recursive'] = recursive
         return self.manager.gitlab.http_list(gl_path, query_data=query_data,
                                              **kwargs)
 
