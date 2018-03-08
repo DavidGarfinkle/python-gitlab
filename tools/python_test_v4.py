@@ -385,8 +385,10 @@ assert(blob == 'Initial content')
 archive1 = admin_project.repository_archive()
 archive2 = admin_project.repository_archive('master')
 assert(archive1 == archive2)
+# repository with recursive option
+admin_project.files.create({'file_path': 'recursive_tree/text.txt', 'branch': 'master', 'content': 'hello, world!', 'commit_message': 'recursive test'})
 recursive_tree = admin_project.repository_tree(recursive=True)
-assert(len(recursive_tree) != 0)
+assert(any(p['path'] == 'recursive_tree/text.txt' for p in recursive_tree))
 
 # project file uploads
 filename = "test.txt"
